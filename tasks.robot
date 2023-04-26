@@ -10,9 +10,13 @@ Library             RPA.Robocorp.Vault
 
 
 *** Variables ***
-${XML_FILES_PATH}       xmls
+# The keys in dict refer to element values in XML
+# The values in dict refer to a specific vault entry,
+# which contains the process id.
 &{PROCESSES}            OTHER_THING=process_id_1
 ...                     SOME_THING=process_id_2
+# The directory relative to robot home where XML files are.
+${XML_FILES_PATH}       xmls
 
 
 *** Tasks ***
