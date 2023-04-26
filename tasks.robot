@@ -11,8 +11,8 @@ Library             RPA.Robocorp.Vault
 
 *** Variables ***
 ${XML_FILES_PATH}       xmls
-${PROCESS1_TEXT}        OTHER_THING
-${PROCESS2_TEXT}        SOME_THING
+&{PROCESSES}            OTHER_THING=process_id_1
+...                     SOME_THING=process_id_2
 
 
 *** Tasks ***
@@ -24,11 +24,9 @@ Dispatch XMLs
     FOR    ${xml_file}    IN    @{xml_files}
         ${value}=    Process a file    ${XML_FILES_PATH}${/}${xml_file}
 
-        # This is where you'd implement the checks for each process
-        IF    $value == $PROCESS1_TEXT
-            Trigger a process    process_id_1    ${xml_file}
-        ELSE IF    $value == $PROCESS2_TEXT
-            Trigger a process    process_id_2    ${xml_file}
+        # Checks if value matches any process, and then triggers it.
+        IF    $value in $PROCESSES
+            Trigger a process    ${PROCESSES}[${value}]    ${xml_file}
         ELSE
             Log    No matching process found for ${value}
         END
