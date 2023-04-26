@@ -29,6 +29,8 @@ Dispatch XMLs
             Trigger a process    process_id_1    ${xml_file}
         ELSE IF    $value == $PROCESS2_TEXT
             Trigger a process    process_id_2    ${xml_file}
+        ELSE
+            Log    No matching process found for ${value}
         END
     END
 
